@@ -28,9 +28,7 @@ export const OurPlans = ({id = ""}) => {
                 <Stack 
                     mt={16}
                     spacing={4} 
-                    direction={["column", "column", "column", "row"]} maxW="1024px" 
-                    divider={<StackDivider color="gray.200" />}
-                    >  
+                    direction={["column", "column", "column", "row"]} maxW="1024px" >  
                     <PlanCard />
                     <PlanCard />
                     <PlanCard />

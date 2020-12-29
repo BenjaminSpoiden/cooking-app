@@ -1,0 +1,22 @@
+{
+   "type": "postgres",
+   "host": "localhost",
+   "port": 5432,
+   "username": "spoid",
+   "database": "cooking-db",
+   "synchronize": true,
+   "logging": false,
+   "entities": [
+      "dist/entities/**/*.js"
+   ],
+   "migrations": [
+      "dist/migrations/**/*.js"
+   ],
+   "subscribers": [
+      "dist/subscriber/**/*.js"
+   ],
+   "cli": {
+        "migrationsDir": "src/migrations",
+        "subscribersDir": "src/subscribers"
+   }
+}

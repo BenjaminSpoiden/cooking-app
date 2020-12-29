@@ -10,8 +10,6 @@ export const OurTeam = ({id = ""}) => {
 
     const avatar: string = data?.results[0]?.picture?.large
 
-    console.log(avatar)
-
     return (
         <Flex
             id={id}
@@ -27,15 +25,15 @@ export const OurTeam = ({id = ""}) => {
                 m="0 auto"
             >
                 <Heading mt={8} mb={2} p={4} as="h2" size="2xl" textAlign="center" color="white" maxW="768px">
-                    +10 peoples working around the clock
+                    We are working with cooks to provide you the best advices for your meals
                 </Heading>
                 <Wrap mb={8} spacing="10px" justify="center" p={4} maxW="768px">
                     {
                         Array(13)
                         .fill("")
                         .map((_, index) => (
-                            <WrapItem>
-                                <Avatar size="xl" key={index * 450} name="Gordon Ramsay" src={isLoading ? "" : avatar} />
+                            <WrapItem key={index}>
+                                <Avatar size="xl" name="Gordon Ramsay" src={isLoading ? "" : avatar} />
                             </WrapItem>
                         ))
                     }

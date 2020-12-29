@@ -6,13 +6,12 @@ import { MdSubject } from 'react-icons/md'
 import { GiPositionMarker } from 'react-icons/gi'
 import NextLink from 'next/link'
 
-type SocialIcon = {
+type SocialIconProps = {
     as: React.ElementType<any>, 
     to?: string
 }
 
-const SocialIcon = ({as, to = "/"}: SocialIcon) => {
-
+const SocialIcon = ({as, to}: SocialIconProps) => {
     return(
         <NextLink href={to}>
             <Icon as={as} w="8" h="8" cursor="pointer" />

@@ -4,13 +4,22 @@ import NextLink from "next/link"
 import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons'
 import { Link as ScrollLink } from "react-scroll"
 import { animateScroll } from "react-scroll"
+import { useCurrentUserQuery, useLogoutMutation } from "../../generated/graphql"
+import { isServer } from "../../utils/isServer"
 
 
 type NavBarProps = {
     scrollAmout: number
 }
 
-const MenuItems = ({children, to = "/", isLast = false}) => {
+interface MenuItemsProps {
+    children: any,
+    to: string,
+    isLast?: boolean
+}
+
+const MenuItems = ({children, to = "/", isLast = false}: MenuItemsProps) => {
+
     return (
         <Text
             mr={{ base: 0, sm: isLast ? 0 : 10 }}
@@ -32,6 +41,47 @@ export const Navbar = ({scrollAmout}: NavBarProps) => {
     
     const [show, setShow] = useState(false)
     const toggleMenu = () => setShow(c => !c)
+
+    const [{ data, fetching }] = useCurrentUserQuery({
+        pause: isServer()
+    })
+    const [{fetching: logoutFetching}, logoutUser] = useLogoutMutation()
+
+
+    let body = null 
+
+    if(fetching) {
+
+    }else if(!data?.currentUser) {
+        body = (
+            <>
+                <Flex flexBasis={{base:"100%", md: "auto"}} d={["none", "none", "none", "flex"]}>
+                    <NextLink href="/login">
+                            <Button size="md" colorScheme="gray" w="125px" mr="4">
+                                <Text fontWeight="bold" color="teal.600">Login</Text>
+                            </Button>
+                        </NextLink>
+
+                        <NextLink href="/signup">
+                            <Button size="md" colorScheme="gray" w="125px">
+                                <Text fontWeight="bold" color="teal.600">Signup</Text>
+                            </Button>
+                    </NextLink>
+                </Flex>
+            </>
+        )
+    }else {
+        body = (
+            <Flex>
+                <Box  mr={4} >
+                    <Text display="flex" justifyContent="center" alignItems="center" fontSize="lg" fontWeight="bold" color="teal.600">{data.currentUser.username}</Text>
+                </Box>
+                <Button size="md" colorScheme="gray" w="125px" onClick={() => logoutUser()} isLoading={logoutFetching} >
+                    <Text fontWeight="bold" color="teal.600">Log out</Text>
+                </Button>
+            </Flex>
+        )
+    }
 
     return (
         <Flex  
@@ -60,20 +110,7 @@ export const Navbar = ({scrollAmout}: NavBarProps) => {
                 <MenuItems to="teamSection">Our Team</MenuItems>
                 <MenuItems to="aboutUsSection" isLast>Our Plans</MenuItems>
             </Flex>
-
-            <Flex flexBasis={{base:"100%", md: "auto"}} d={["none", "none", "none", "flex"]}>
-                <NextLink href="/login">
-                        <Button size="md" colorScheme="gray" w="125px" mr="4">
-                            <Text fontWeight="bold" color="teal.600">Login</Text>
-                        </Button>
-                    </NextLink>
-
-                    <NextLink href="/signup">
-                        <Button size="md" colorScheme="gray" w="125px">
-                            <Text fontWeight="bold" color="teal.600">Signup</Text>
-                        </Button>
-                </NextLink>
-            </Flex>
+            {body}
         </Flex>
     )
 }

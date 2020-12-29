@@ -1,3 +1,4 @@
+import { stringify } from "querystring"
 import { useEffect, useState } from "react"
 
 export const useFetchAvatar = (url: string) => {
@@ -10,6 +11,7 @@ export const useFetchAvatar = (url: string) => {
         .then(data => {
             setUserData({data: data, isLoading: false})
         })
+        .catch(reason => console.log(reason))
     }, [])
 
     return userData

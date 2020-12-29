@@ -7,8 +7,10 @@ import { OurTeam } from '../components/sections/OurTeam'
 import { OurPlans } from '../components/sections/OurPlans'
 import { Footer } from '../components/sections/Footer'
 import React, { useEffect, useState } from "react"
+import { withUrqlClient } from 'next-urql'
+import { createUrqlClient } from '../utils/createUrqlClient'
 
-export default function Home() {
+const Home = () => {
 
   const [scrollPos, setScrollPos] = useState(0)
 
@@ -42,3 +44,5 @@ export default function Home() {
     </>
   )
 }
+
+export default withUrqlClient(createUrqlClient, { ssr: true })(Home)

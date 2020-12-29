@@ -1,8 +1,7 @@
 import { Flex } from "@chakra-ui/react"
 import React from "react"
-import { Navbar } from "../sections/Navbar"
 
-export const LandingLayout = ({children}) => {
+export const LandingLayout = ({children}: any) => {
     return (
         <>
             <Flex

@@ -5,7 +5,7 @@ import NextLink from "next/link"
 
 const HeroData = {
     title: "Your recipe database",
-    subtitle: "Quality and fresh meals designed by our experienced team for you to enjoy.",
+    subtitle: "Quality digital cookbook designed by our experienced team for you to enjoy.",
     image: "https://source.unsplash.com/collection/3139185/800x600",
     ctaText: "Register now",
     ctaLink: "/signup"
@@ -13,7 +13,7 @@ const HeroData = {
 
 export const Hero = ({id = ""}) => {
 
-
+    
     return (
         <Flex
             id={id}
